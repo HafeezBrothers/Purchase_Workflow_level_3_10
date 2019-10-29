@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_purchase_order_form_custom" model="ir.ui.view">
+            <field name="name">purchase.order.form11</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="replace">
+                    <header>
+                        <button name="action_rfq_send" states="draft,hac,damt" string="Send RFQ by Email" type="object" context="{'send_rfq':True}" class="oe_highlight"/>
+                        <button name="action_rfq_send" states="sent" string="Re-Send RFQ by Email" type="object" context="{'send_rfq':True}"/>
+                        <button name="print_quotation" string="Print RFQ" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+                        <button name="print_quotation" string="Print RFQ" type="object" states="sent" groups="base.group_user"/>
+                        
+                        <button name="btn_app1" type="object" class="oe_highlight" states="draft,sent" string="1st Approval" groups="po_workflows_level_3.approv1"/>
+                        <button name="btn_app2" type="object" class="oe_highlight" states="approval2" string="2nd Approval" groups="po_workflows_level_3.approv2"/>
+
+                        <button name="approv1" type="object" class="oe_highlight" states="approval" string="Final Approval" groups="po_workflows_level_3.fin_approv"/>
+
+                        <!-- <button name="button_confirm" type="object" states="draft" string="Confirm Order" id="draft_confirm"/> -->
+<!--                         <button name="button_confirm" type="object" states="sent" string="Confirm Order" class="oe_highlight" id="bid_confirm"/> -->
+                        <button name="button_approve" type="object" states="to approve" string="Approve Order" class="oe_highlight" groups="purchase.group_purchase_manager"/>
+                        <button name="action_rfq_send" states="purchase" string="Send PO by Email" type="object" context="{'send_rfq':False}"/>
+                        <button name="action_view_picking" string="Receive Products" class="oe_highlight" type="object" attrs="{'invisible': ['|', '|' , ('is_shipped', '=', True), ('state','not in', ('purchase','done')), ('picking_count', '=', 0)]}"/>
+                        <button name="button_draft" states="cancel" string="Set to Draft" type="object"/>
+                        <button name="button_cancel" states="draft,to approve,sent,purchase" string="Cancel" type="object"/>
+                        <button name="button_done" type="object" string="Lock" states="purchase"/>
+                        <button name="button_unlock" type="object" string="Unlock" states="done" groups="purchase.group_purchase_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approval2,approval,sent,purchase"   readonly="1"/>
+                        <!-- <field name="state2" widget="statusbar" statusbar_visible="draft,sent,pma,dir,purchase" attrs="{'invisible': ['|','|', ('option', '=', 'wh'),('option', '=',False)]}"  readonly="1"/> -->
+                    </header>
+                    
+                </xpath>
+               
+                
+            </field>
+        </record>
+    </data>
+</odoo>
