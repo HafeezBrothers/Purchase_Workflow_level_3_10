@@ -3,7 +3,8 @@
     'name':'Purchase Order WorkFlows (Level 3)',
     'description' : 'PO WorkFlows',
     'author' : 'Hafeez Brothers',
-    'version': '1.0',  
+    'version': '1.0',
+    'license': 'LGPL-3',
     'depends' : [
                    'base','purchase',
                 ],
